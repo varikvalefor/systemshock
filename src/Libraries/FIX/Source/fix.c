@@ -170,9 +170,8 @@ fix fix_div_int(fix a, fix b) {
 fix fix_div_safe_cint(fix a, fix b) {
     int64_t r64 = ((int64_t)(a) << 16) / (int64_t)(b);
     int32_t r32 = (int32_t)((r64 >> 16) & 0xFFFFFFFF);
-    if ((r64 & 0xFFFF) != 0) {
+    if ((r64 & 0xFFFF) != 0)
         return r32 + 1;
-    }
     return r32;
 }
 
