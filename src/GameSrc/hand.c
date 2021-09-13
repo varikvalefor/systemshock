@@ -250,10 +250,6 @@ Ref get_handart(int *x_offset, int *y_offset, int *beam_x_offset, short mouse_x,
     return (MKREF((HANDART_ID_BASE + HANDART_NUM), frame));
 }
 
-// --------------------------------------
-// notify_draw_handart()
-//
-
 void notify_draw_handart(void) {
     // once a fire frame has been shown, set handart_fire to TRUE
     // - this is so we definitely show the fire frame, otherwise it would looooook very goooooofy - minman
