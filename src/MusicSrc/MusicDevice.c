@@ -38,9 +38,8 @@ static int NullMidiInit(MusicDevice *dev, const unsigned int outputIndex, unsign
 
 static void NullMidiDestroy(MusicDevice *dev)
 {
-    if (!dev) return;
-
-    free(dev);
+    if (dev)
+      free(dev);
 }
 
 static void NullMidiSetupMode(MusicDevice *dev, MusicMode mode)
