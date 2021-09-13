@@ -204,9 +204,7 @@ static void AdlMidiDestroy(MusicDevice *dev)
     AdlMidiDevice *adev = (AdlMidiDevice *)dev;
     if (!adev) return;
     if (adev->dev.isOpen)
-    {
         adl_close(adev->adl);
-    }
     free(adev);
 }
 
