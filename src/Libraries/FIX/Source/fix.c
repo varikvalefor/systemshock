@@ -185,9 +185,8 @@ fix fix_mul_div(fix m0, fix m1, fix d) {
     if (d == 0) {
         gOVResult = 2;
         fix r = 0x7FFFFFFF;
-        if (mr >= 0) {
+        if (mr >= 0)
             return r;
-        }
         return -r;
     }
     gOVResult = 0;
