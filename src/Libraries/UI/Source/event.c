@@ -1033,16 +1033,3 @@ errtype ui_init_focus_chain(uiSlab* slab)
    slab->fchain.curfocus = CHAIN_END;
    return OK;
 }
-
-      
-
-
-
-
-
-
-
-
-
-
-
