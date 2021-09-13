@@ -247,15 +247,6 @@ Ref get_handart(int *x_offset, int *y_offset, int *beam_x_offset, short mouse_x,
 
     reset_handart_count(player_struct.actives[ACTIVE_WEAPON]);
 
-    /* KLC - don't need this check
-       prt = ResReadRefTable(HANDART_ID_BASE + HANDART_NUM);
-       if (!(RefIndexValid(prt,frame)))
-       {
-          frame = prt->numRefs - 1;
-          Warning(("ACK PAIN HATE!\n"));
-       }
-       ResFreeRefTable(prt);
-    */
     return (MKREF((HANDART_ID_BASE + HANDART_NUM), frame));
 }
 
