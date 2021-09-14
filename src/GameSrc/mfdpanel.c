@@ -1629,9 +1629,8 @@ char *grid_help_string(gridFlowPuzzle *gfpz, char *buf, int siz) {
 void id_clut_init(uchar *clut) {
     int i;
 
-    for (i = 0; i < 256; i++) {
+    for (i = 0; i < 256; i++)
         clut[i] = i;
-    }
 }
 
 // I remember the feeling
