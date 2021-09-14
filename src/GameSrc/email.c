@@ -444,7 +444,6 @@ void email_draw_text(Id email_id, bool really_an_email) {
         return;
     if (really_an_email) {
         if (current_email == EMAIL_INACTIVE) {
-            current_email = EMAIL_INACTIVE;
             return;
         }
         if (next_text_line == EMAIL_INTERCEPT) {
