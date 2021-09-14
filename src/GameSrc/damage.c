@@ -121,9 +121,8 @@ void destroy_destroyed_objects(void) {
                             me_rend3_set(mmp, me_bits_rend3(mmp) - 1);
                             objPhysicss[osid].p2.x = 0;
                         }
-                    } else if (objs[id].obclass == CLASS_GRENADE) {
+                    } else if (objs[id].obclass == CLASS_GRENADE)
                         do_grenade_explosion(id, TRUE);
-                    }
 
                     // If we destroyed a creature which was being targeted, we
                     // need to switch the current target
