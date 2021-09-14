@@ -440,9 +440,8 @@ void email_draw_text(Id email_id, bool really_an_email) {
     }
     uiShowMouse(NULL);
 
-    if (!ResInUse(email_id)) {
+    if (!ResInUse(email_id))
         return;
-    }
     if (really_an_email) {
         if (current_email == EMAIL_INACTIVE) {
             current_email = EMAIL_INACTIVE;
