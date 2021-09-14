@@ -679,8 +679,7 @@ void mfd_emailmug_expose(MFD *mfd, ubyte control) {
     {
         int hnd;
         // Do unexpose stuff here.
-        if (shodan_sfx_go)
-            shodan_sfx_go = FALSE;
+        shodan_sfx_go = FALSE;
         if (digi_fx_playing(SFX_SHODAN_STRONG, &hnd))
             snd_end_sample(hnd);
         return;
