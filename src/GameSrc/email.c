@@ -564,10 +564,9 @@ void email_page_exit(void) {
     email_cursor_currently = FALSE;
     //   Free(email_cursor_bitmap.bits);
     next_text_line = EMAIL_DONE;
-    for (mid = 0; mid < NUM_MFDS; mid++) {
+    for (mid = 0; mid < NUM_MFDS; mid++)
         if (mfd_get_func(mid, player_struct.mfd_current_slots[mid]) == MFD_EMAILMUG_FUNC)
             restore_mfd_slot(mid);
-    }
 }
 
 uchar email_invpanel_input_handler(uiEvent *ev, LGRegion *r, intptr_t data) {
