@@ -742,10 +742,8 @@ void mfd_emailmug_expose(MFD *mfd, ubyte control) {
 #ifdef AUDIOLOGS
         if (!audiolog_setting)
 #endif
-            if (shodan_sfx_go) {
-                if (!digi_fx_playing(SFX_SHODAN_STRONG, NULL))
+            if (shodan_sfx_go && !digi_fx_playing(SFX_SHODAN_STRONG, NULL))
                     play_digi_fx(SFX_SHODAN_STRONG, -1);
-            }
         // Now, the text
         if (mugnum == mnums[0]) {
             char *sub;
