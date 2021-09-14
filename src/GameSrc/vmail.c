@@ -117,9 +117,7 @@ void vmail_anim_end(ActAnim *paa, AnimCode ancode, AnimCodeData *pdata)
 {
 #ifdef PLAYTEST
    if (current_vmail == -1)
-   {
       Warning(("Trying to end vmail, with no current vmail!\n"));
-   }
 #endif
    current_vmail = -1;
 }
