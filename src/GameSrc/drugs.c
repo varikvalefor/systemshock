@@ -216,7 +216,6 @@ void drugs_update() {
 
                 // Figure out if the drug wore off a little
                 if ((rand() % DRUG_DECAY_MAX) < decay) {
-
                     // it did
                     player_struct.drug_status[i]++;
                 }
