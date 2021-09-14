@@ -1597,14 +1597,12 @@ void wacky_int_line(short x1, short y1, short x2, short y2) {
 
     if (x1 == x2) {
         delt = (y2 < y1) ? -1 : 1;
-        for (; y1 != y2 + delt; y1 += delt) {
+        for (; y1 != y2 + delt; y1 += delt)
             ss_set_pixel(GPZ_BASE_CHARGE_COLOR + (256 - x1 - y1) % GPZ_RANGE_CHARGE_COLOR, x1, y1);
-        }
     } else {
         delt = (x2 < x1) ? -1 : 1;
-        for (; x1 != x2 + delt; x1 += delt) {
+        for (; x1 != x2 + delt; x1 += delt)
             ss_set_pixel(GPZ_BASE_CHARGE_COLOR + (256 - x1 - y1) % GPZ_RANGE_CHARGE_COLOR, x1, y1);
-        }
     }
 }
 
