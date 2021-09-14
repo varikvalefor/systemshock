@@ -1668,9 +1668,8 @@ void mfd_gridpanel_expose(MFD *mfd, ubyte control) {
         short dr, dc;
         uchar win, primary, winblink = FALSE;
 
-        if (gfpz->gfLayout.winmove_f) {
+        if (gfpz->gfLayout.winmove_f)
             mfd_notify_func(MFD_GRIDPANEL_FUNC, MFD_INFO_SLOT, FALSE, MFD_ACTIVE, FALSE);
-        }
 
         if ((full && grid_primary_mfd < 0) || player_struct.mfd_current_slots[grid_primary_mfd] != MFD_INFO_SLOT) {
             full = TRUE; // if we weren't full exposing before, we are now
