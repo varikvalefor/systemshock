@@ -314,9 +314,9 @@ char *email_draw_string(char *text, short *x, short *y, bool last) {
     gr_set_fcolor(MESSAGE_COLOR);
     gr_char_size('X', &w, &h);
     while (isspace(*text)) {
-        if (*text == '\n') {
+        if (*text == '\n')
             *y += h, *x = 0;
-        } else
+        else
             *x += gr_char_width(*text);
         text++;
     }
