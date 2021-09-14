@@ -232,7 +232,6 @@ errtype play_vmail(byte vmail_no)
    uchar    use_texture_buffer = FALSE;
    int      len = vmail_len[vmail_no];
    int      i;
-   //MemStat  data;
 
    // let's extern
 
@@ -266,9 +265,6 @@ errtype play_vmail(byte vmail_no)
    uiPushSlabCursor(&fullscreen_slab, &vmail_cursor);
    uiPushSlabCursor(&main_slab, &vmail_cursor);
 
-   //MemStats(&data);
-   //use_texture_buffer = (data.free.sizeMax < MAX_VMAIL_SIZE);
-
 #ifdef LOTS_O_SPEW
    mprintf("\nBUFFER:(%d)\n", use_texture_buffer);
 #endif
@@ -286,14 +282,6 @@ errtype play_vmail(byte vmail_no)
       {
          for (i=0;i<len && !cant_preload_all;i++)
          {
-            // check if we have enough memory to preload another segment
-            /*MemStats(&data);
-            if (data.free.sizeMax < MAX_VMAIL_SIZE)
-            {
-               cant_preload_all = TRUE;
-               break;
-            }*/
-
             // preload vmail frame animation first, and then play intro -> no pause between the two
             // if it fails on the lock - then say you can't preload!
             if(ResLock(vmail_frame_anim[vmail_no]+i) == NULL)
