@@ -1198,24 +1198,6 @@ uchar gpz_propogate_charge_n_check(gridFlowPuzzle *gfpz) {
                         }
                     }
                     break;
-                    /*
-                                      if(gpz_state_charged(gfpz,--src_r,src_c)
-                                         || gpz_state_charged(gfpz,++src_r,--src_c)
-                                         || gpz_state_charged(gfpz,++src_r,++src_c)
-                                         || gpz_state_charged(gfpz,--src_r,++src_c)) {
-                                         gpz_set_grid_state(gfpz,r,c,gpz_charge_state(s));
-                                         flow=TRUE;
-                                      }
-                                      break;
-                                      if(gpz_state_charged(gfpz,--src_r,src_c)
-                                         + gpz_state_charged(gfpz,++src_r,--src_c)
-                                         + gpz_state_charged(gfpz,++src_r,++src_c)
-                                         + gpz_state_charged(gfpz,--src_r,++src_c) >= 2) {
-                                         gpz_set_grid_state(gfpz,r,c,gpz_charge_state(s));
-                                         flow=TRUE;
-                                      }
-                                      break;
-                    */
                 // default if state is already charged or cannot be charged.
                 default:
                     break;
