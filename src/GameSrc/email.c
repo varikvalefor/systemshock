@@ -443,9 +443,8 @@ void email_draw_text(Id email_id, bool really_an_email) {
     if (!ResInUse(email_id))
         return;
     if (really_an_email) {
-        if (current_email == EMAIL_INACTIVE) {
+        if (current_email == EMAIL_INACTIVE)
             return;
-        }
         if (next_text_line == EMAIL_INTERCEPT) {
             email_intercept();
             return;
