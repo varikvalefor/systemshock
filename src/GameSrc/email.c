@@ -890,7 +890,6 @@ void read_email(Id new_base, int num) {
                 email_draw_text(current_email_base + current_email, current_email_base == EMAIL_BASE_ID);
                 play_vmail(mug_num - BASE_VMAIL);
 #ifdef AUDIOLOGS
-            } else {
             }
 #endif
         } else {
