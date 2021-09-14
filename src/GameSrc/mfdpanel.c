@@ -1679,7 +1679,6 @@ void mfd_gridpanel_expose(MFD *mfd, ubyte control) {
         primary = (mfd->id == grid_primary_mfd);
 
         if (primary) {
-
             id_clut_init(grid_help_clut);
             if (full)
                 gpz_setup_buttons(gfpz);
