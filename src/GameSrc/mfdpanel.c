@@ -1521,8 +1521,8 @@ uchar mfd_gridpanel_button_handler(MFD *mfd, LGPoint bttn, uiEvent *ev, void *da
 #endif
 
     gfpz->gfLayout.winmove_f = 0;
-    s = gridpanel_move(bttn, gfpz);
-    s = gpz_uncharge_state(s);
+    
+    s = gpz_uncharge_state(gridpanel_move(bttn, gfpz));
 
 #ifdef GRIDP_AUTO_SOLVE
     mfd_notify_func(MFD_GRIDPANEL_FUNC, MFD_INFO_SLOT, FALSE, MFD_ACTIVE, FALSE);
