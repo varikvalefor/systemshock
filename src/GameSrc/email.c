@@ -701,9 +701,8 @@ void mfd_emailmug_expose(MFD *mfd, ubyte control) {
         uchar mcolor = MESSAGE_COLOR;
         parse_email_mugs((char *)RefGet(MKREF(msg, MUGSHOT_IDX)), &mcolor, mnums, FALSE);
         for (mid = 0; mid < NUM_MFDS; mid++)
-            if (player_struct.mfd_current_slots[mid] == EMAILMUG_SLOT) {
+            if (player_struct.mfd_current_slots[mid] == EMAILMUG_SLOT)
                 break;
-            }
         if (mid > mfd->id)
             mid = 0;
         mugnum = mnums[mfd->id - mid];
