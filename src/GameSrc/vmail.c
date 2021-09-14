@@ -457,7 +457,7 @@ uchar shield_test_func(short keycode, ulong context, void* data)
    for (i=0;i<5; i++)
    {
       play_vmail(test_vmail);
-      test_vmail = (test_vmail+1)%NUM_VMAIL;
+      test_vmail = (test_vmail + 1) % NUM_VMAIL;
    }
    vmail_wait_for_input = TRUE;
    return(TRUE);
