@@ -1566,11 +1566,10 @@ uchar mfd_gridpanel_handler(MFD *m, uiEvent *ev) {
     r.lr.x = r.ul.x + cc * GRIDP_BTN_WD;
     RECT_MOVE(&r, m->rect.ul);
     uiGetRegionCursorStack(&m->reg, &cs);
-    if (RECT_TEST_PT(&r, ev->pos)) {
+    if (RECT_TEST_PT(&r, ev->pos))
         uiPushCursorOnce(cs, &gridCursor);
-    } else {
+    else
         uiPopCursorEvery(cs, &gridCursor);
-    }
 #ifdef EPICK_ON_CURSOR_TRY
     extern uchar try_use_epick(ObjID panel, ObjID cursor_obj);
 
