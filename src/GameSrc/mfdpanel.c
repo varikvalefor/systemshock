@@ -1510,13 +1510,9 @@ uchar mfd_gridpanel_button_handler(MFD *mfd, LGPoint bttn, uiEvent *ev, void *da
     gridFlowPuzzle *gfpz = (gridFlowPuzzle *)&player_struct.mfd_access_puzzles[0];
     gpz_state s;
 
-    if (mfd->id != grid_primary_mfd)
-        return TRUE;
-
-    if ((ev->subtype & (MOUSE_LDOWN | UI_MOUSE_LDOUBLE)) == 0)
-        return TRUE;
-
-    if (gfpz->gfLayout.have_won)
+    if (mfd->id != grid_primary_mfd ||
+        (ev->subtype & (MOUSE_LDOWN | UI_MOUSE_LDOUBLE)) == 0 ||
+        gfpz->gfLayout.have_won)
         return TRUE;
 
 #ifdef GRIDP_AUTO_SOLVE
