@@ -524,9 +524,8 @@ void email_draw_text(Id email_id, bool really_an_email) {
     // Print the "more" message.
 more:
     if (remains != NULL) {
-        if (strlen(remains) >= EMAIL_BUFSIZ) {
+        if (strlen(remains) >= EMAIL_BUFSIZ)
             critical_error(0x3005);
-        }
         strcpy(email_buffer, remains);
     }
     draw_more_string(x, y, FOOTER_MORE_MASK);
