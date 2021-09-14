@@ -665,9 +665,7 @@ void parse_email_mugs(char *mug, uchar *mcolor, ushort mugnums[NUM_MFDS], uchar 
         if (mugnums[i] != lastmug)
             different++;
         lastmug = mugnums[i];
-        while (isdigit(*s))
-            s++;
-        while (!isdigit(*s) && *s != '\0')
+        while (isdigit(*s) || (!isdigit(*s) && *s != '\0'))
             s++;
     }
     if (setup)
