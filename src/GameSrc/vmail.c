@@ -224,12 +224,12 @@ errtype play_vmail_intro(uchar use_texture_buffer)
 #pragma disable_message(202)
 errtype play_vmail(byte vmail_no)
 {
-   LGPoint    animloc = {VINTRO_X, VINTRO_Y};
+   LGPoint  animloc = {VINTRO_X, VINTRO_Y};
    errtype  intro_error;
    int      vmail_animfile_num = 0;
-   uchar     early_exit = FALSE;
-   uchar     preload_animation= TRUE;
-   uchar     use_texture_buffer = FALSE;
+   uchar    early_exit = FALSE;
+   uchar    preload_animation= TRUE;
+   uchar    use_texture_buffer = FALSE;
    int      len = vmail_len[vmail_no];
    int      i;
    //MemStat  data;
