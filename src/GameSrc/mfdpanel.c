@@ -361,9 +361,9 @@ uchar wirepos_moveto(wirePosPuzzle *wppz, int wim_code) {
    {
                 int owire = wppz->wire_in_motion & BTN_MASK, twire = wim_code & BTN_MASK, loc;
                 loc = wirepos_iswire(wppz, wppz->wire_in_motion);
-                if (loc == -1) {
+                if (loc == -1)
                     retv = FALSE;
-                } else {
+                else {
 #ifdef ALLOW_FLIP
                     if (((1 << twire) & wim_tap) != 0) {
                         int oloc = wirepos_iswire(wppz, wim_code);
@@ -431,12 +431,8 @@ uchar mfd_accesspanel_button_handler(MFD *mfd, LGPoint bttn, uiEvent *ev, void *
         if (wirepos_moveto(wppz, wim_code)) {
             wirepos_score(wppz);
         }
-    } else // pick it up
-    {
-        if (wirepos_iswire(wppz, wim_code) != -1) {
-            wppz->wire_in_motion = wim_code;
-        }
-    }
+    } else if (wirepos_iswire(wppz, wim_code) != -1)
+        wppz->wire_in_motion = wim_code;  // pick it up
     //   wirepos_spew(wppz,53);
     mfd_notify_func(MFD_ACCESSPANEL_FUNC, MFD_INFO_SLOT, FALSE, MFD_ACTIVE, FALSE);
     wirepos_3int_update(wppz);
@@ -451,9 +447,8 @@ char mfd_type_accesspanel(ObjID id) {
 
     if (p2 == WIREPUZ_CODE)
         return MFD_ACCESSPANEL_FUNC;
-    else {
+    else
         return MFD_GRIDPANEL_FUNC;
-    }
 }
 
 char mfd_setup_accesspanel(uchar special, ObjID id) {
@@ -520,9 +515,8 @@ uchar mfd_solve_wirepanel() {
     int wire, swapper, targ, num_wires;
     int score;
 
-    if (wppz->have_won) {
+    if (wppz->have_won)
         return EPICK_PRESOL;
-    }
 
     //keep within array bounds
     num_wires = wppz->wirecnt;
@@ -537,22 +531,20 @@ uchar mfd_solve_wirepanel() {
         // which should never share pins with our target position.
 
         targ = wppz->wires[wire].targ.lpos;
-        for (swapper = wire + 1; swapper < num_wires; swapper++) {
+        for (swapper = wire + 1; swapper < num_wires; swapper++)
             if (wppz->wires[swapper].cur.lpos == targ) {
                 wppz->wires[swapper].cur.lpos = wppz->wires[wire].cur.lpos;
                 wppz->wires[wire].cur.lpos = targ;
             }
-        }
         if (wppz->wires[wire].cur.lpos != targ)
             wppz->wires[wire].cur.lpos = targ;
 
         targ = wppz->wires[wire].targ.rpos;
-        for (swapper = wire + 1; swapper < num_wires; swapper++) {
+        for (swapper = wire + 1; swapper < num_wires; swapper++)
             if (wppz->wires[swapper].cur.rpos == targ) {
                 wppz->wires[swapper].cur.rpos = wppz->wires[wire].cur.rpos;
                 wppz->wires[wire].cur.rpos = targ;
             }
-        }
         if (wppz->wires[wire].cur.rpos != targ)
             wppz->wires[wire].cur.rpos = targ;
 
@@ -802,9 +794,8 @@ void mfd_accesspanel_expose(MFD *mfd, ubyte control) {
 #endif
     } else {
         ObjID obj = panel_ref_unexpose(mfd->id, MFD_ACCESSPANEL_FUNC);
-        if (obj != OBJ_NULL) {
+        if (obj != OBJ_NULL)
             objs[obj].info.current_frame = 0;
-        }
 
         return;
     }
@@ -1083,12 +1074,11 @@ void gpz_uncharge_grid(gridFlowPuzzle *gfpz) {
     int r, c;
     gpz_state s;
 
-    for (r = 0; r < gfpz->gfLayout.rows; r++) {
+    for (r = 0; r < gfpz->gfLayout.rows; r++)
         for (c = 0; c < gfpz->gfLayout.cols; c++) {
             s = gpz_get_grid_state(gfpz, r, c);
             gpz_set_grid_state(gfpz, r, c, gpz_uncharge_state(s));
         }
-    }
 }
 
 void gpz_perimeter_to_grid(gridFlowPuzzle *gfpz, ushort per, short *r, short *c) {
@@ -1140,7 +1130,7 @@ uchar gpz_doneness(gridFlowPuzzle *gfpz) {
 
     gpz_perimeter_to_grid(gfpz, gfpz->gfLayout.dest, &dr, &dc);
 
-    for (r = 0; r < gfpz->gfLayout.rows; r++) {
+    for (r = 0; r < gfpz->gfLayout.rows; r++)
         for (c = 0; c < gfpz->gfLayout.cols; c++) {
 
             dist = abs(r - dr) + abs(c - dc);
@@ -1149,7 +1139,6 @@ uchar gpz_doneness(gridFlowPuzzle *gfpz) {
             if (gpz_state_charged(gfpz, r, c) && dist < doneness)
                 doneness = dist;
         }
-    }
 
     if (doneness == INT_MAX)
         return 0;
