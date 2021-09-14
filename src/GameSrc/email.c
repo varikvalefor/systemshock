@@ -641,9 +641,8 @@ void parse_email_mugs(char *mug, uchar *mcolor, ushort mugnums[NUM_MFDS], uchar 
                 email_flags |= EMAIL_FLAG_TRANSITORY;
                 break;
             case COLOR_ESC_CHAR:
-                if (mcolor) {
+                if (mcolor)
                     *mcolor = esc_param;
-                }
                 break;
             case INTERCEPT_ESC_CHAR:
                 if (!(email_flags & EMAIL_FLAG_BEEN_READ))
