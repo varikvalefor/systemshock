@@ -1442,11 +1442,9 @@ gpz_state gridpanel_move(LGPoint node, gridFlowPuzzle *gfpz) {
             gpz_toggle_state(gfpz, node.y, node.x);
             break;
         case GPZ_KING:
-            for (r = node.y - 1; r <= node.y + 1; r++) {
-                for (c = node.x - 1; c <= node.x + 1; c++) {
+            for (r = node.y - 1; r <= node.y + 1; r++)
+                for (c = node.x - 1; c <= node.x + 1; c++)
                     gpz_toggle_state(gfpz, r, c);
-                }
-            }
             break;
         case GPZ_QUEEN:
         case GPZ_ROOK:
