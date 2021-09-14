@@ -573,9 +573,8 @@ uchar email_invpanel_input_handler(uiEvent *ev, LGRegion *r, intptr_t data) {
     if (input_cursor_mode == INPUT_OBJECT_CURSOR)
         return FALSE;
     if (inventory_page != INV_EMAILTEXT_PAGE) {
-        if (email_cursor_currently) {
+        if (email_cursor_currently)
             email_page_exit();
-        }
         return FALSE;
     }
     if (ev->type == UI_EVENT_MOUSE_MOVE)
