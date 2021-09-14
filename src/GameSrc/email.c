@@ -735,9 +735,8 @@ void mfd_emailmug_expose(MFD *mfd, ubyte control) {
 	    if (f != NULL) {
 		ss_bitmap(&f->bm, (MFD_VIEW_WID - f->bm.w) / 2, (MFD_VIEW_HGT - f->bm.h) / 2);
 		RefUnlock(mug);
-	    } else {
+	    } else
 		WARN("mfd_emailmug_expose(): could not load mugshot ", mug);
-	    }
         }
 
 #ifdef AUDIOLOGS
