@@ -583,8 +583,6 @@ uchar email_invpanel_input_handler(uiEvent *ev, LGRegion *r, intptr_t data) {
         return FALSE;
     if (ev->type == UI_EVENT_MOUSE && !(ev->subtype & (MOUSE_LDOWN | MOUSE_RDOWN | MOUSE_CDOWN)))
         return TRUE;
-    //   if (ev->type == UI_EVENT_KBD_COOKED &&  (ev->subtype & BAD_EMAIL_KEYFLAGS))
-    //      return FALSE;
     if (ev->type == UI_EVENT_KBD_COOKED && !((ev->subtype & KB_FLAG_DOWN) != 0 && (ev->subtype & 0xFF) == ' '))
         return FALSE;
     if (next_text_line == EMAIL_DONE) {
