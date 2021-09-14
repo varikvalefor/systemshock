@@ -199,9 +199,7 @@ char *get_email_title_string(int n, char *text, int siz) {
 
     get_string(title, text, siz);
     if (cnt > 0) // if in fact the email has a sequence number, tack it on the end.
-    {
         sprintf(text, get_temp_string(title), cnt);
-    }
     return text;
 }
 
