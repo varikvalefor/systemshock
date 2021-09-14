@@ -533,9 +533,8 @@ done:
     if (next_text_line == EMAIL_DONE) {
         short w, h;
 
-        if (email_flags & EMAIL_FLAG_TRANSITORY) {
+        if (email_flags & EMAIL_FLAG_TRANSITORY)
             player_struct.email[current_email] &= ~(EMAIL_GOT | EMAIL_READ);
-        }
         gr_char_size('X', &w, &h);
         x = 0;
         y += h;
