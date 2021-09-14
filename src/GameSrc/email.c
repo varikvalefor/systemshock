@@ -722,7 +722,6 @@ void mfd_emailmug_expose(MFD *mfd, ubyte control) {
         // Clear the canvas by drawing the background bitmap
         if (!full_game_3d)
             ss_bitmap(&mfd_background, 0, 0);
-        // gr_bitmap(&mfd_background, 0, 0);
 
         // Slam in the mug shot, centered.
         if ((mugnum < BASE_VMAIL)
