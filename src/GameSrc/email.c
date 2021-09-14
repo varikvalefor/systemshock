@@ -961,10 +961,9 @@ void mfd_emailware_expose(MFD *mfd, ubyte control) {
 
         // if we aren't showing the email hardware mfd any more, then
         // turn off the MFD
-        while (mfd_yield_func(MFD_EMAILWARE_FUNC, &mfd_id)) {
+        while (mfd_yield_func(MFD_EMAILWARE_FUNC, &mfd_id))
             if (mfd_id != mfd->id)
                 on = TRUE;
-        }
     }
     if (((s & WARE_ON) != 0) != on) {
         use_ware(WARE_HARD, HARDWARE_EMAIL);
