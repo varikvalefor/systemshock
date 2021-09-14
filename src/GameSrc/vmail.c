@@ -175,7 +175,7 @@ errtype play_vmail_intro(uchar use_texture_buffer)
       useBuffer = frameBuffer;
       bsize = sizeof(frameBuffer);
    }
-   if ((w * h) + sizeof(grs_bitmap) > bsize)
+   if (w * h + sizeof(grs_bitmap) > bsize)
       critical_error(CRITERR_MEM|8);
    p = useBuffer+bsize-(w*h);
    vmail_background = (grs_bitmap *) (p - sizeof(grs_bitmap));
