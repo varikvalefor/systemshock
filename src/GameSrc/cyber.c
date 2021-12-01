@@ -47,6 +47,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MAX_SHODAN_FAILURES 10
 #define GAME_OVER_HACK 0x6
 
+#define min(a,b) a > b ? b : a
+
 extern uchar *shodan_bitmask;
 
 ObjID shodan_avatar_id = OBJ_NULL;
@@ -94,9 +96,7 @@ errtype check_cspace_death() {
                 reset_input_system();
 
                 // make him tired & hurt
-                player_struct.hit_points = player_struct.hit_points / 2;
-                if (player_struct.hit_points < MIN_CSPACE_EXIT_HP)
-                    player_struct.hit_points = MIN_CSPACE_EXIT_HP;
+                player_struct.hit_points = min(player_struct.hit_points / 2, MIN_CSPACE_EXIT_HP);
                 player_struct.fatigue = MAX_FATIGUE;
             }
         }
