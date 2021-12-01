@@ -94,7 +94,7 @@ errtype check_cspace_death() {
                 reset_input_system();
 
                 // make him tired & hurt
-                player_struct.hit_points = player_struct.hit_points * 1 / 2;
+                player_struct.hit_points = player_struct.hit_points / 2;
                 if (player_struct.hit_points < MIN_CSPACE_EXIT_HP)
                     player_struct.hit_points = MIN_CSPACE_EXIT_HP;
                 player_struct.fatigue = MAX_FATIGUE;
