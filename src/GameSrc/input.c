@@ -804,18 +804,9 @@ void sball_chk(void) {
 
         doing_pitch = FilterPitch(&vals[4]);
 
-        if (abs(vals[0]) > CONTROL_MAX_VAL)
-            vals[0] = sign(vals[0]) * CONTROL_MAX_VAL;
-        if (abs(vals[1]) > CONTROL_MAX_VAL)
-            vals[1] = sign(vals[1]) * CONTROL_MAX_VAL;
-        if (abs(vals[2]) > CONTROL_MAX_VAL)
-            vals[2] = sign(vals[2]) * CONTROL_MAX_VAL;
-        if (abs(vals[3]) > CONTROL_MAX_VAL)
-            vals[3] = sign(vals[3]) * CONTROL_MAX_VAL;
-        if (abs(vals[4]) > CONTROL_MAX_VAL)
-            vals[4] = sign(vals[4]) * CONTROL_MAX_VAL;
-        if (abs(vals[5]) > CONTROL_MAX_VAL)
-            vals[5] = sign(vals[5]) * CONTROL_MAX_VAL;
+        for(int valsIterator = 0; valsIterator <= 5; valsIterator++)
+            if (abs(vals[valsIterator]) > CONTROL_MAX_VAL)
+                vals[valsIterator] = sign(vals[valsIterator]) * CONTROL_MAX_VAL;
 
         vals[2] = sball_jump_filter(vals[2]);
         if (vals[2] > 0)
