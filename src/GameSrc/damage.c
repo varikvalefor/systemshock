@@ -1232,13 +1232,8 @@ ubyte player_attack_object(ObjID target, int wpn_triple, int power_level, Combat
         }
     }
 
-    if (attack_effect_type == BEAM_TYPE) {
-        extern ObjID beam_effect_id;
-        if (effect_id != OBJ_NULL) {
-            beam_effect_id = effect_id;
-            hudobj_set_id(beam_effect_id, TRUE);
-        }
-    }
+    if (attack_effect_type == BEAM_TYPE && effect_id != OBJ_NULL)
+        hudobj_set_id(effect_id, TRUE);
 
     return (dead);
 }
