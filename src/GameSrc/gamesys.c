@@ -950,8 +950,6 @@ int enviro_suit_absorb(int damage, int exposure, ubyte dtype) {
     damage -= lg_min(damage, absorb);
     switch (dtype) {
     case BIO_TYPE:
-        bio_absorb = 8 + long_sqrt((int)damage);
-        break;
     case RADIATION_TYPE:
         rad_absorb = 8 + long_sqrt((int)damage);
         break;
