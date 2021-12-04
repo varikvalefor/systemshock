@@ -931,7 +931,7 @@ int enviro_suit_absorb(int damage, int exposure, ubyte dtype) {
     // Absorb all but 1/nth of damage
     denom = ENVIRO_ABSORB_DENOM + version;
     absorb = ((damage + exposure) * (denom - 1)) / denom;
-    if (absorb == 0)
+    if (!absorb)
         return damage;
 
     // Compute drain for that absorption amount.
