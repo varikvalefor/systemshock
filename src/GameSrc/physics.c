@@ -1738,8 +1738,6 @@ void instantiate_dirac(int triple, Dirac_frame *new_dirac) {
         new_dirac->gravity = 0;
         break;
     default:
-        //         if (global_fullmap->cyber)
-        //            new_dirac->gravity = 0;
         break;
     }
     newmass = ObjProps[OPTRIP(triple)].mass;
