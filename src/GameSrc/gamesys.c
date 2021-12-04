@@ -958,12 +958,10 @@ int enviro_suit_absorb(int damage, int exposure, ubyte dtype) {
     default:
         break;
     }
-    if (enviro_absorb_rate > 0) {
-        if (old_edrain_rate == 0) {
-            uint32_t time = 5u << APPROX_CIT_CYCLE_SHFT;
-            hud_set_time(HUD_ENVIROUSE, time);
-            hud_set_time(HUD_ENERGYUSE, time);
-        }
+    if (enviro_absorb_rate > 0 && old_edrain_rate == 0) {
+        uint32_t time = 5u << APPROX_CIT_CYCLE_SHFT;
+        hud_set_time(HUD_ENVIROUSE, time);
+        hud_set_time(HUD_ENERGYUSE, time);
     } else
         hud_unset(HUD_ENVIROUSE);
     return (byte)damage;
