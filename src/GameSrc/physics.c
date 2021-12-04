@@ -1671,7 +1671,6 @@ void instantiate_robot(int triple, Robot *new_robot) {
     pep = ObjProps[OPTRIP(triple)].pep;
     if (pep > 0)
         new_robot->pep = fix_make(pep, 0) / PHYS_PEP_UNIT;
-    //   new_robot->cyber_space = global_fullmap->cyber ? 2 : 0;
     if (new_robot->gravity)
         new_robot->cyber_space = 0;
     else
