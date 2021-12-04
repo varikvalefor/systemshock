@@ -343,12 +343,7 @@ void fatigue_player(void) {
     extern uchar jumpjets_active;
     if (gamesys_fatigue && !jumpjets_active && !EDMS_pelvis_is_climbing()) {
         deltat = player_struct.deltat;
-        deltaf = run_fatigue_rate * (fatigue_val(c[CONTROL_YVEL]) + fatigue_val(2 * c[CONTROL_ZVEL]) +
-                                     // fatigue_val(c[CONTROL_XVEL])/64 +
-                                     // fatigue_val(c[CONTROL_XYROT])/256 +
-                                     // fatigue_val(c[CONTROL_XZROT])/256 +
-                                     // fatigue_val(c[CONTROL_YZROT])/256 +
-                                     0);
+        deltaf = run_fatigue_rate * (fatigue_val(c[CONTROL_YVEL]) + fatigue_val(2 * c[CONTROL_ZVEL]));
         if (player_struct.posture != POSTURE_STAND)
             deltaf /= sqr(player_struct.posture + 1);
         if (motionware_mode == MOTION_SKATES)
