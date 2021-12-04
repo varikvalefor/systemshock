@@ -468,10 +468,7 @@ errtype gamesys_run(void) {
         if (fr_sfx_time > 0) {
             fr_sfx_time -= player_struct.deltat;
             if (fr_sfx_time <= 0)
-
-            {
                 fr_global_mod_flag(0, FR_SFX_MASK);
-            }
         }
         if (fr_surge_time > 0) {
             fr_surge_time -= player_struct.deltat;
