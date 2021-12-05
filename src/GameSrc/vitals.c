@@ -210,20 +210,18 @@ errtype status_vitals_update(uchar Full_Redraw) {
         last_health_x = health_x;
     }
 
-    if (!(full_game_3d && global_fullmap->cyber)) {
-        if (energy_x != last_energy_x) {
+    if (!(full_game_3d && global_fullmap->cyber) && energy_x != last_energy_x) {
 
-            minx = lg_min(energy_x, last_energy_x);
-            maxx = Full_Redraw ? VITALS_MAX : lg_max(health_x, last_health_x);
+        minx = lg_min(energy_x, last_energy_x);
+        maxx = Full_Redraw ? VITALS_MAX : lg_max(health_x, last_health_x);
 
-            draw_status_bar(minx, maxx, energy_x, STATUS_VITALS_Y_BOTTOM + 1);
-            ref = REF_IMG_bmEnergyIcon1 + (energy_x / 8);
-            icon_bmp = lock_bitmap_from_ref(ref);
-            ss_bitmap(icon_bmp, STATUS_ICON_X, STATUS_VITALS_Y_BOTTOM);
-            RefUnlock(ref);
+        draw_status_bar(minx, maxx, energy_x, STATUS_VITALS_Y_BOTTOM + 1);
+        ref = REF_IMG_bmEnergyIcon1 + (energy_x / 8);
+        icon_bmp = lock_bitmap_from_ref(ref);
+        ss_bitmap(icon_bmp, STATUS_ICON_X, STATUS_VITALS_Y_BOTTOM);
+        RefUnlock(ref);
 
-            last_energy_x = energy_x;
-        }
+        last_energy_x = energy_x;
     }
 
     return (OK);
