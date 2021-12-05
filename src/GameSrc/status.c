@@ -132,6 +132,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define TIMING_PROCEDURES_OFF
 //#define TIMING_CALLBACK_OFF
 
+#define flip(x,y) {int l = x; x = y; y = l;}
+
 // Struct to contain information about tail
 
 typedef struct {
@@ -292,11 +294,8 @@ void bio_vline(int color, int x, int y, int y1) {
         x1 = SCONV_X(x + 1);
         y = SCONV_Y(y);
         y1 = SCONV_Y(y1);
-        if (y > y1) {
-            int foo = y;
-            y = y1;
-            y1 = foo;
-        }
+        if (y > y1)
+            flip(y, y1);
         for (i = x0; i < x1; i++)
             for (j = y; j <= y1; j++)
                 ss_save_under_set_pixel(color, i, j);
