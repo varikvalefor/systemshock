@@ -198,9 +198,8 @@ void mlimbs_do_ai() {
             mlimbs_peril = DEFAULT_PERIL_MIN;
             mlimbs_combat = 0;
         } else {
-            if ((mlimbs_combat > 0) || in_peril) {
+            if ((mlimbs_combat > 0) || in_peril)
                 mlimbs_peril = DEFAULT_PERIL_MAX;
-            }
         }
 
         // KLC - moved here from grind_music_ai, so it can do this check at all times.
