@@ -169,13 +169,9 @@ uchar parse_motion_key_cyber(ushort code, short *cnum, short *cval) {
     *cnum = -1;
     *cval = 0;
 
-    while (MoveCyberKeybinds[i].code != 255) {
-        if (code == MoveCyberKeybinds[i].code) {
+    for (i = 0; MoveCyberKeybinds[i].code != 255; i++)
+        if (code == MoveCyberKeybinds[i].code)
             move = MoveCyberKeybinds[i].move;
-            break;
-        }
-        i++;
-    }
 
     switch (move) {
     case M_THRUST:
