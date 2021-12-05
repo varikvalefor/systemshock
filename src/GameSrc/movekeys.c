@@ -291,14 +291,12 @@ void init_motion_polling(void) {
     }
 
     // add move cyber keybinds to list of scancodes to poll
-    i = 0;
-    while (MoveCyberKeybinds[i].code != 255) {
+    for (i = 0; MoveCyberKeybinds[i].code != 255; i++) {
         code = MoveCyberKeybinds[i].code & 255;
         if (!used[code]) {
             used[code] = 1;
             motion_key_scancodes[j++] = code;
         }
-        i++;
     }
 
     // always poll these codes, so add them if they weren't added already
