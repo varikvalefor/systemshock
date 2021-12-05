@@ -724,10 +724,7 @@ void clear_tail(int track_number, int delete_location) {
     delta = abs(height - prevHeight);
     if ((delta >= SPIKE_THRESHOLD) && !((delete_location == 0) && (curr_blk->tail == FALSE))) {
         y1 = STATUS_BIO_Y_BASE - prevHeight;
-        if (y > y1)
-            base = y1;
-        else
-            base = y;
+				base = y > y1 ? y1 : y;
         for (i = 0; i < delta + 1; i++) {
             bio_restore_pixel(&bio_background_bitmap, x, base + i);
         }
