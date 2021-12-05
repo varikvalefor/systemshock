@@ -200,10 +200,7 @@ errtype status_vitals_update(uchar Full_Redraw) {
 
     if (health_x != last_health_x) {
         minx = lg_min(health_x, last_health_x);
-        if (Full_Redraw)
-            maxx = VITALS_MAX;
-        else
-            maxx = lg_max(health_x, last_health_x);
+        maxx = Full_Redraw ? VITALS_MAX : lg_max(health_x, last_health_x);
 
         draw_status_bar(minx, maxx, health_x, STATUS_VITALS_Y_TOP);
         ref = ((global_fullmap->cyber) ? REF_IMG_bmCyberIcon1 : REF_IMG_bmHealthIcon1) + (health_x / 8);
@@ -219,10 +216,7 @@ errtype status_vitals_update(uchar Full_Redraw) {
         if (energy_x != last_energy_x) {
 
             minx = lg_min(energy_x, last_energy_x);
-            if (Full_Redraw)
-                maxx = VITALS_MAX;
-            else
-                maxx = lg_max(energy_x, last_energy_x);
+            maxx = Full_Redraw ? VITALS_MAX : lg_max(health_x, last_health_x);
 
             draw_status_bar(minx, maxx, energy_x, STATUS_VITALS_Y_BOTTOM + 1);
             ref = REF_IMG_bmEnergyIcon1 + (energy_x / 8);
