@@ -176,10 +176,8 @@ void mlimbs_do_ai() {
     }
 
     if (music_on) {
-        if (mlimbs_combat != 0) {
-            if (mlimbs_combat < player_struct.game_time)
-                mlimbs_combat = 0;
-        }
+        if (mlimbs_combat != 0 && mlimbs_combat < player_struct.game_time)
+            mlimbs_combat = 0;
 
         // Set danger layer
         layer_danger = 0;
