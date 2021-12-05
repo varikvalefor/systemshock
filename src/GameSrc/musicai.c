@@ -156,12 +156,11 @@ void mlimbs_do_ai() {
     if (!gReadyToQueue)
     {
         for (int i = 1; i < MLIMBS_MAX_CHANNELS - 1; i++)
-            if (current_request[i].pieceID != 255)
-                if (!IsPlaying(i))
-                {
-                    make_request(i, current_request[i].pieceID);
-                    current_request[i].pieceID = 255; //make sure it only plays this time
-                }
+            if (current_request[i].pieceID != 255 && !IsPlaying(i))
+            {
+                make_request(i, current_request[i].pieceID);
+                current_request[i].pieceID = 255; //make sure it only plays this time
+            }
     }
 
 
