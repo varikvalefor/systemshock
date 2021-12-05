@@ -53,13 +53,9 @@ uchar parse_motion_key(ushort code, short *cnum, short *cval) {
     *cnum = -1;
     *cval = 0;
 
-    while (MoveKeybinds[i].code != 255) {
-        if (code == MoveKeybinds[i].code) {
+    for(i = 0; MoveKeybinds[i].code != 255; i++)
+        if (code == MoveKeybinds[i].code)
             move = MoveKeybinds[i].move;
-            break;
-        }
-        i++;
-    }
 
     switch (move) {
     case M_RUNFORWARD:
