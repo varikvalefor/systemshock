@@ -527,14 +527,11 @@ errtype side_icon_free_bitmaps() {
 #ifdef PRELOAD_BITMAPS
     int i, j, index;
     Free(side_icon_background.bits);
-    for (i = 0; i < NUM_SIDE_ICONS; i++) {
-
+    for (i = 0; i < NUM_SIDE_ICONS; i++)
         for (j = 0; j < ICON_ART_ITEMS; j++) {
-
             index = (ICON_ART_ITEMS * i) + j;
             Free(side_icon_bms[i][j].bits);
         }
-    }
 #endif
     return (OK);
 }
