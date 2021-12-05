@@ -906,11 +906,10 @@ void change_bio_vars(void) {
         static int last_val = 0;
         if (bio_energy_var != last_val)
             energy_spike = 3;
-        if (energy_spike == 0) {
+        if (energy_spike == 0)
             bio_energy_var = ENERGY_ZERO + player_struct.energy_spend - player_struct.energy_regen;
-        } else {
+        else
             energy_spike--;
-        }
         last_val = bio_energy_var;
     }
     // MR. SINUSOID biorhythm
