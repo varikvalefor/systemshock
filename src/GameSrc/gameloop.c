@@ -143,9 +143,8 @@ void game_loop(void) {
                 loopLine(GL | 0x18, mfd_update());
             }
 
-            if (_change_flag & DEMOVIEW_UPDATE) {
+            if (_change_flag & DEMOVIEW_UPDATE)
                 chg_unset_flg(DEMOVIEW_UPDATE);
-            }
         }
         if (!full_game_3d) {
             TRACE("%s: update_meters", __FUNCTION__);
