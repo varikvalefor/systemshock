@@ -725,12 +725,10 @@ void clear_tail(int track_number, int delete_location) {
     if ((delta >= SPIKE_THRESHOLD) && !((delete_location == 0) && (curr_blk->tail == FALSE))) {
         y1 = STATUS_BIO_Y_BASE - prevHeight;
 				base = y > y1 ? y1 : y;
-        for (i = 0; i < delta + 1; i++) {
+        for (i = 0; i < delta + 1; i++)
             bio_restore_pixel(&bio_background_bitmap, x, base + i);
-        }
-    } else {
+    } else
         bio_restore_pixel(&bio_background_bitmap, x, y);
-    }
 
     // Invalidate the height at the delete location
     curr_blk->height[delete_location] |= INVALID_HEIGHT;
@@ -748,10 +746,9 @@ void clear_tail(int track_number, int delete_location) {
 void draw_one_location_tracks(int location) {
     int i;
 
-    for (i = (NUM_BIO_TRACKS - 1); i >= 0; i--) {
+    for (i = (NUM_BIO_TRACKS - 1); i >= 0; i--)
         if (!bio_data[i].free && bio_data[i].active)
             draw_bio_height(i, location);
-    }
 }
 
 // --------------------------------------------
@@ -765,10 +762,9 @@ void draw_one_location_tracks(int location) {
 void draw_lower_tracks(int track_number, int location) {
     int i;
 
-    for (i = track_number; i >= 0; i--) {
+    for (i = track_number; i >= 0; i--)
         if (!bio_data[i].free && bio_data[i].active)
             draw_bio_height(i, location);
-    }
 }
 
     // RANDOM SPEW STUFF
