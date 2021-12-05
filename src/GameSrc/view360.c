@@ -125,7 +125,6 @@ static uchar rendered_inv_fullscrn = FALSE;
 extern void shock_hflip_in_place(grs_bitmap *bm);
 
 int view360_fullscrn_draw_callback(void *v, void *vbm, int x, int y, int flg) {
-    // KLC   shock_hflip_in_place((grs_bitmap *)vbm);
     return FALSE;
 }
 
