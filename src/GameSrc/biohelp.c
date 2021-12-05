@@ -201,9 +201,7 @@ uchar mfd_biohelp_button_handler(MFD *mfd, LGPoint bttn, uiEvent *ev, void *data
 uchar mfd_biohelp_handler(MFD *m, uiEvent *e) {
     uchar retval = FALSE;
     LGPoint pos = e->pos;
-    if (NUM_TRACKS <= NUM_BUTTONS)
-        return FALSE;
-    if (!(e->subtype & MOUSE_LDOWN))
+    if (NUM_TRACKS <= NUM_BUTTONS || !(e->subtype & MOUSE_LDOWN))
         return FALSE;
     pos.x -= m->rect.ul.x;
     pos.y -= m->rect.ul.y;
