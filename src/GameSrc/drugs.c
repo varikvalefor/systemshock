@@ -609,26 +609,17 @@ void wear_off_drug(int i) {
 
 void drug_detox_effect() {
     int i, stack;
-    for (stack = 0; stack < INTENSITY(DRUG_DETOX); stack += 2) {
+    for (stack = 0; stack < INTENSITY(DRUG_DETOX); stack += 2)
         for (i = 0; i < NUM_DETOX_DRUGS; i++) {
             int d = detox_drug_order[i];
-            if (STATUS(d) < 0) {
+            if (STATUS(d) != 0) {
                 wear_off_drug(d);
-                goto found;
+                return;
             }
         }
-        for (i = 0; i < NUM_DETOX_DRUGS; i++) {
-            int d = detox_drug_order[i];
-            if (STATUS(d) > 0) {
-                wear_off_drug(d);
-                goto found;
-            }
-        }
-    found:;
-    }
-    for (i = 0; i < NUM_DAMAGE_TYPES; i++) {
+
+    for (i = 0; i < NUM_DAMAGE_TYPES; i++)
         player_struct.hit_points_lost[i] /= INTENSITY(DRUG_DETOX) + 1;
-    }
 }
 
 // ---------------------------------------------------------------------------
