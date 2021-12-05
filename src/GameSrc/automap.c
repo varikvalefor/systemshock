@@ -206,7 +206,6 @@ void mfd_map_expose(MFD *m, ubyte control) {
             ss_safe_set_cliprect(0, 0, MFD_VIEW_WID, MFD_VIEW_HGT);
             if (!full_game_3d)
                 draw_res_bm(REF_IMG_bmBlankMFD, 0, 0);
-            // draw_hires_resource_bm(REF_IMG_bmBlankMFD, 0, 0);
             draw_raw_resource_bm(MKREF(RES_mfdArtOverlays, MFD_ART_TRIOP), 0, 0);
             get_string(REF_STR_NoAutomap, buf, sizeof(buf));
             gr_set_font(ResLock(MFD_FONT));
@@ -264,7 +263,6 @@ void mfd_map_expose(MFD *m, ubyte control) {
         ss_safe_set_cliprect(0, 0, MFD_VIEW_WID, MFD_VIEW_HGT);
         if (!full_game_3d)
             draw_res_bm(REF_IMG_bmBlankMFD, 0, 0);
-        // gr_bitmap(&mfd_background, 0, 0);
         switch (map_state) {
         case AUTOMAP_ZOOM:
             automap_expose_zoom(m, control);
@@ -297,7 +295,6 @@ void automap_expose_cross_section(MFD *mfd, ubyte tic) {
     gr_set_fcolor(ORANGE_8_BASE + 2);
     fsmap_get_lev_str(buf, BUF_SIZE);
     gr_string_size(buf, &w, &h);
-    // KLC   draw_shadowed_string(fsmap_get_lev_str(buf,BUF_SIZE),MFD_VIEW_WID-w-2,1,full_game_3d);
     draw_shadowed_string(buf, MFD_VIEW_WID - w - 2, 1, full_game_3d);
     ResUnlock(RES_tinyTechFont);
 
