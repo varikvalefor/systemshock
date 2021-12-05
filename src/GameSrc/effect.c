@@ -329,7 +329,7 @@ errtype increment_anim(ulong num_units) {
         switch (player_struct.weapons[slot].type) {
         case (GUN_SUBCLASS_BEAM):
             if (energy_expulsion)
-                light_val = (ubyte)((BRIGHT_LIGHT_FLASH * energy_expulsion) / 100);
+                light_val = (ubyte)(BRIGHT_LIGHT_FLASH * energy_expulsion / 100);
             break;
         case (GUN_SUBCLASS_HANDTOHAND):
             light_val = 0;
