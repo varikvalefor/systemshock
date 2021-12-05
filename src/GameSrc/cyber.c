@@ -143,10 +143,14 @@ errtype enter_cyberspace_stuff(char dest_lev) {
 
     for (i = 0; i < MFD_NUM_REAL_SLOTS; i++)
         status_back[i] = player_struct.mfd_slot_status[i];
-    player_struct.mfd_slot_status[MFD_WEAPON_SLOT] = MFD_UNAVAIL;
-    player_struct.mfd_slot_status[MFD_ITEM_SLOT] = MFD_UNAVAIL;
-    player_struct.mfd_slot_status[MFD_MAP_SLOT] = MFD_UNAVAIL;
-    player_struct.mfd_slot_status[MFD_TARGET_SLOT] = MFD_UNAVAIL;
+
+    // Mark some MFD panels as being unavailable.
+    {
+        int wipingIndex[4] = {MFD_WEAPON_SLOT, MFD_ITEM_SLOT,
+                              MFD_MAP_SLOT, MFD_TARGET_SLOT};
+        for(i = 0; i <= sizeof(wipingIndex)/sizeof(wipingIndex[0]); i++)
+            player_struct.mfd_slot_status[wipingIndex[i]] = MFD_UNAVAIL;
+    }
 
     inventory_page = INV_SOFTWARE_PAGE;
     set_inventory_mfd(MFD_INV_SOFT_COMBAT, player_struct.actives[ACTIVE_COMBAT_SOFT], TRUE);
