@@ -300,14 +300,12 @@ void init_motion_polling(void) {
     }
 
     // always poll these codes, so add them if they weren't added already
-    i = 0;
-    while (always_motion_poll[i] != 255) {
+    for (i = 0; always_motion_poll[i] != 255; i++) {
         code = always_motion_poll[i];
         if (!used[code]) {
             used[code] = 1;
             motion_key_scancodes[j++] = code;
         }
-        i++;
     }
 
     motion_key_scancodes[j] = KBC_NONE; // signal end of list
