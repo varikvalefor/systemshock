@@ -260,9 +260,8 @@ void mlimbs_do_credits_ai() {
 #endif // NOT_YET
 
 errtype mai_attack() {
-    if (music_on) {
+    if (music_on)
         mlimbs_combat = player_struct.game_time + mai_combat_length;
-    }
     return (OK);
 }
 
