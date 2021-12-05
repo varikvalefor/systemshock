@@ -98,11 +98,8 @@ void game_loop(void) {
             draw_pause_string();
             redraw_paused = FALSE;
         }
-        // KLC - does nothing!  loopLine(GL|0x1D,synchronous_update());
         if (music_on)
             loopLine(GL|0x1C, mlimbs_do_ai());
-        /*if (pal_fx_on)
-            loopLine(GL|0x1E, palette_advance_all_fx(* (long *) 0x16a)); // TickCount()*/
     }
 
     // If we're not paused...
@@ -132,13 +129,6 @@ void game_loop(void) {
 
             TRACE("%s: status_vitals_update", __FUNCTION__);
             loopLine(GL | 0x17, if (!full_game_3d) status_vitals_update(FALSE));
-            /*KLC - no longer needed
-            if (_change_flag&ANIM_UPDATE)
-            {
-                    loopLine(GL|0x19, AnimRecur());
-                    chg_unset_flg(ANIM_UPDATE);
-            }
-            */
 
             if (full_game_3d && ((_change_flag & INVENTORY_UPDATE) || (_change_flag & MFD_UPDATE)))
                 _change_flag |= DEMOVIEW_UPDATE;
@@ -154,9 +144,6 @@ void game_loop(void) {
             }
 
             if (_change_flag & DEMOVIEW_UPDATE) {
-                // KLC - does nothing!
-                // if (sfx_on || music_on)
-                //     loopLine(GL|0x1D, synchronous_update());
                 chg_unset_flg(DEMOVIEW_UPDATE);
             }
         }
@@ -177,7 +164,6 @@ void game_loop(void) {
                 olh_scan_objects();
             }
         }
-        // KLC - does nothing!         loopLine(GL|0x1D,synchronous_update());
         if (sfx_on || music_on) {
             TRACE("%s: sound_frame_update", __FUNCTION__);
             loopLine(GL | 0x1C, mlimbs_do_ai());

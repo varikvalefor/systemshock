@@ -208,24 +208,9 @@ uchar ppall[PALETTE_SIZE];
 //  Initialize everything!
 //-------------------------------------------------
 void init_all(void) {
-    /*
-       char buf[256];
-       char norun[1];
-       extern char savegame_dir[50];
-       extern Datapath savegame_dpath; */
     ulong pause_time;
     int i;
     bool speed_splash = FALSE;
-    /*
-
-       uchar        dofault = TRUE;
-            int dummy_count;
-       int   data[1];
-       int   cnt;
-       extern void init_config(int argc,char* argv[]);
-       extern errtype terrain_palette_popup(void);
-       extern uchar cam_mode;
-    */
 
     start_mem = slorkatron_memory_check();
     if (start_mem < MINIMUM_GAME_THRESHOLD)
@@ -236,27 +221,6 @@ void init_all(void) {
 
     ResInit();
     // Where are these defined?
-    //   restemp_buffer = ALTERNATE_BUFFER;
-    //   restemp_buffer_size = ALTERNATE_BUFFER_SIZE;
-
-    /*
-       init_early_dpaths();
-       init_config(argc,argv);
-       if (config_get_raw(CFG_NORUN_VAR,norun,1))
-       {
-          if (norun[0]=='1')
-             critical_error(CRITERR_EXEC|1);
-       }
-    */
-    //   Spew(DSRC_SYSTEM_Memory, ("initial memory: %d\n",start_mem));
-    /*
-       dofault = !config_get_raw(CFG_NOFAULT_VAR,NULL,0);
-       DBG(DSRC_SYSTEM_FaultDisable,{ dofault = FALSE;});
-       if (dofault)
-          ex_startup(EXM_ALL);
-    */
-    //   KLC - this is done in uiInit() [in UI:EVENT.C]   kb_startup(NULL);
-    //   kb_set_state(0x54,KBA_SIGNAL);
 
     // Use our own buffer for LZW
     LzwSetBuffer((void *)big_buffer, BIG_BUFFER_SIZE);
@@ -289,8 +253,6 @@ void init_all(void) {
 
     DEBUG("- Physics Startup");
     physics_init();
-    //	 KLC - done in InitMac.c.
-    //   atexit(free_all);
 
     DEBUG("- Load Resources");
     init_load_resources();
@@ -333,12 +295,6 @@ void init_all(void) {
         init_animlist();
     }
 
-    // Play the Origin intro movie.
-    {
-        // FSSpec	fSpec;
-        // FSMakeFSSpec(gDataVref, gDataDirID, "Origin", &fSpec);
-        // PlayStartupMovie(&fSpec, 0, 0);
-    }
 
     DEBUG("- Screen init");
     screen_init();
@@ -358,9 +314,6 @@ void init_all(void) {
     // Put up splash screen for US!
     DEBUG("- Make splash");
     uiFlush();
-
-    // DrawSplashScreen(REF_IMG_bmOriginSplash, TRUE);
-    // SDLDraw();
 
     // Set the wait time for our screen
     pause_time = TickCount();
@@ -391,13 +344,6 @@ void init_all(void) {
     for (i = 0; i < 4; i++)
         player_struct.difficulty[i] = 2;
 
-    // KLC - no config stuff for Mac version
-    //	 if (!config_get_value(CFG_ARCHIVE_VAR, CONFIG_STRING_TYPE, &real_archive_fn, &dummy_count))
-    //	BlockMove(ARCHIVE_FNAME, real_archive_fn, 20);
-
-    // KLC   init_kb();
-    // KLC   DbgInstallGetch(KeyGetch);
-
     // Start out game with high peril, to sound cool...
     mlimbs_peril = 95;
 
@@ -427,73 +373,9 @@ void init_all(void) {
     else
         pause_time += MIN_WAIT_TIME;
 
-    if ((_current_loop != SETUP_LOOP) && (_current_loop != CUTSCENE_LOOP)) {
-        //Â¥Â¥ for now      object_data_load();
-
-        // gr_clear(0xFF);
-        // gr_set_pal(0, 256, ppall);
-    }
-
-    // perhaps shouldnt do this if we are going to go into editor...
-    // fade down for last time
-    if (_current_loop != EDIT_LOOP) {
-        //	   pause_for_input(TickCount() + 10);
-        //	   if (pal_fx_on)
-        //	      palfx_fade_down();
-    }
-
     uiFlush();
     init_done = TRUE;
 }
-
-/*
-//-----------------------------------------------------------
-//  Draw a splash screen in its associated color table.
-//-----------------------------------------------------------
-void DrawSplashScreen(short id, Boolean fadeIn) {
-    byte pal_id;
-    uchar savep[768];
-    grs_bitmap bits;
-    // CTabHandle		ctab;
-    extern void finish_pal_effect(byte id);
-    extern byte palfx_start_fade_up(uchar * new_pal);
-
-    // gr_clear(0xFF);
-
-    // First, clear the screen and load in the color table for this picture.
-    // gr_clear(0xFF);
-    ctab = GetCTable(id);														// Get the pict's
-CLUT if (ctab)
-    {
-            BlockMove((**(ctab)).ctTable, (**(gMainColorHand)).ctTable, 256 * sizeof(ColorSpec));
-            SetEntries(0, 255, (**(gMainColorHand)).ctTable);
-            ResetCTSeed();
-            DisposCTable(ctab);
-
-#ifdef DO_FADES
-            if (fadeIn)																	// Get it in a form for
-palette fade
-            {
-                    mac_get_pal(0, 256, savep);
-                    gr_set_pal(0, 256, savep);
-            }
-#endif
-            LoadPictShockBitmap(&gMainOffScreen, id);
-
-#ifdef DO_FADES
-            if (fadeIn)
-                    pal_id = palfx_start_fade_up(savep);
-#endif
-            gr_init_bm(&bits, (uchar *)gMainOffScreen.Address, BMT_FLAT8, 0, 640, 480);
-            gr_bitmap(&bits, 0, 0);
-
-#ifdef DO_FADES
-            if (fadeIn)
-                    finish_pal_effect(pal_id);
-#endif
-    }
-}
-*/
 
 void PreloadGameResources(void) {
     // Images
@@ -537,21 +419,8 @@ errtype object_data_load(void) {
     LGRect bounds;
     extern cams objmode_cam;
 
-    //	char buf[256];
-    //   MemStat  data;
-    //	extern Datapath savegame_dpath;
-
     if (objdata_loaded)
         return (ERR_NOEFFECT);
-
-    //   if(MemStats(&data))
-    //  {
-    //      Warning(("Heap is bad before starting object_data_load\n"));
-    //      critical_error(CRITERR_MEM|7);
-    //   }
-    //   mprintf("Hey we have %d memory avail before object data load\n", data.free.sizeTot);
-
-    // KLC - Mac cursor showing at this time   begin_wait();
 
     // Initialize DOS (Doofy Object System)
     DEBUG("ObjsInit");
@@ -569,12 +438,6 @@ errtype object_data_load(void) {
     DEBUG("init mfd");
     init_newmfd();
 
-    /*
-    //   strcpy(buf,"DATA\\");
-       strcpy(buf,"");
-       // NOTE: is there any other loop we start in which doesnt overwrite the map
-       // if not
-    */
     bounds.ul.x = bounds.ul.y = 0;
     bounds.lr.x = global_fullmap->x_size;
     bounds.lr.y = global_fullmap->y_size;
@@ -590,7 +453,6 @@ errtype object_data_load(void) {
     objdata_loaded = TRUE;
     load_dynamic_memory(DYNMEM_ALL);
 
-    // KLC   end_wait();
     return (OK);
 }
 
@@ -636,8 +498,6 @@ errtype init_pal_fx() {
 
     i = 1;
 
-    // gr_clear(0xFF);
-
     // Initialize the palette
     load_da_palette();
 
@@ -647,7 +507,6 @@ errtype init_pal_fx() {
     // alloc ipal after the above - since we free ipal earlier
     // prevents fragmenting a bit
     shock_alloc_ipal();
-    // ipalHdl = shock_alloc_ipal();
 
     for (i = 0; i < 16; i++)
         gr_init_tluc8_spoly_table(i, fix_make(0, 0xe000), fix_make(0, 0x8000), gr_bind_rgb(255, 64, 64),
@@ -724,7 +583,6 @@ errtype init_gamesys() {
     // Load data for weapons, drugs, wares
     drugs_init();
     init_all_side_icons();
-    // KLC wares_init();						doesn't do anything.  leave it out.
     game_sched_init();
 
     return (OK);
@@ -829,7 +687,6 @@ void free_all(void) {
     shutdown_input();
     Spew(DSRC_TESTING_Test6, ("shutdown - 11\n"));
     palette_shutdown();
-    //   free_dpaths();
     Spew(DSRC_TESTING_Test6, ("shutdown - 12\n"));
     shutdown_config();
     Spew(DSRC_TESTING_Test6, ("shutdown - 13\n"));
