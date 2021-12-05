@@ -97,10 +97,6 @@ errtype biohelp_create_mouse_region(LGRegion *root);
 
 void mfd_biohelp_expose(MFD *mfd, ubyte control) {
     uchar full = control & MFD_EXPOSE_FULL;
-    if (control == 0) // MFD is drawing stuff
-    {
-        // Do unexpose stuff here.
-    }
     if (control & MFD_EXPOSE) // Time to draw stuff
     {
         int i;
@@ -116,7 +112,6 @@ void mfd_biohelp_expose(MFD *mfd, ubyte control) {
         // Clear the canvas by drawing the background bitmap
         if (!full_game_3d)
             ss_bitmap(&mfd_background, 0, 0);
-        // gr_bitmap(&mfd_background, 0, 0);
 
         // figure out where to start, and what tracks are active.
         for (track = 0, i = 0; track < NUM_BIO_TRACKS; track++) {
