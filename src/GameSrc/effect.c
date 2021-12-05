@@ -319,7 +319,7 @@ errtype increment_anim(ulong num_units) {
         // - this is so we definitely show the fire frame, otherwise it would look very goooooofy - minman
 
         if (handart_show > (handart_count & 0x7F))
-            handart_show = (handart_fire) ? 1 : 2;
+            handart_show = handart_fire ? 1 : 2;
     }
     if ((handart_show != 1) && handart_flash) {
         byte light_val;
