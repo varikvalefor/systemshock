@@ -173,8 +173,6 @@ errtype status_vitals_update(uchar Full_Redraw) {
 
     short health_value, energy_value, health_x, energy_x;
     ushort minx, maxx;
-    //   static long last_time=0L;
-    //   long delta;
 
     if (global_fullmap->cyber)
         health_value = player_struct.cspace_hp;
@@ -222,7 +220,6 @@ errtype status_vitals_update(uchar Full_Redraw) {
             ref = REF_IMG_bmEnergyIcon1 + (energy_x / 8);
             icon_bmp = lock_bitmap_from_ref(ref);
             ss_bitmap(icon_bmp, STATUS_ICON_X, STATUS_VITALS_Y_BOTTOM);
-            // gr_bitmap(icon_bmp, SCONV_X(STATUS_ICON_X), SCONV_Y(STATUS_VITALS_Y_BOTTOM));
             RefUnlock(ref);
 
             last_energy_x = energy_x;
@@ -251,9 +248,7 @@ errtype draw_status_arrow(int x_coord, int y) {
     else
         index = 2;
     ss_bitmap(&status_arrows[index], STATUS_VITALS_X_BASE + (x_coord * STATUS_ANGLE_SIZE), y);
-    // gr_bitmap(&status_arrows[index],
-    //					SCONV_X(STATUS_VITALS_X_BASE + (x_coord * STATUS_ANGLE_SIZE)),
-    //					SCONV_Y(y));
+
     return (OK);
 }
 
