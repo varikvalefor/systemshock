@@ -340,13 +340,10 @@ uchar motion_keycheck_handler(uiEvent *ev, LGRegion *r, intptr_t data) {
             moveOK = FALSE;                               // don't move.
     }
 
-    if (moveOK) {
+    if (moveOK)
         if ((global_fullmap->cyber && parse_motion_key_cyber(cooked, &cnum, &cval)) ||
-            parse_motion_key(cooked, &cnum, &cval)) {
-            if (abs(poll_controls[cnum]) < abs(cval))
+            parse_motion_key(cooked, &cnum, &cval) && abs(poll_controls[cnum]) < abs(cval))
                 poll_controls[cnum] = cval;
-        }
-    }
 
     return TRUE;
 }
