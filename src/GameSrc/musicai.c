@@ -287,9 +287,8 @@ errtype mai_monster_nearby(int monster_type) {
 }
 
 errtype mai_monster_defeated() {
-    if (music_on) {
+    if (music_on)
         mlimbs_combat = 0;
-    }
     return (OK);
 }
 
