@@ -98,6 +98,7 @@ void game_loop(void) {
             draw_pause_string();
             redraw_paused = FALSE;
         }
+
         if (music_on)
             loopLine(GL|0x1C, mlimbs_do_ai());
     }
@@ -137,6 +138,7 @@ void game_loop(void) {
                 chg_unset_flg(INVENTORY_UPDATE);
                 loopLine(GL | 0x1B, inventory_draw());
             }
+
             if (_change_flag & MFD_UPDATE) {
                 TRACE("%s: MFD_UPDATE", __FUNCTION__);
                 chg_unset_flg(MFD_UPDATE);
@@ -146,10 +148,12 @@ void game_loop(void) {
             if (_change_flag & DEMOVIEW_UPDATE)
                 chg_unset_flg(DEMOVIEW_UPDATE);
         }
+
         if (!full_game_3d) {
             TRACE("%s: update_meters", __FUNCTION__);
             loopLine(GL | 0x19, update_meters(FALSE));
         }
+
         if (!full_game_3d && olh_overlay_on) {
             TRACE("%s: olh_overlay", __FUNCTION__);
             olh_overlay();
@@ -163,6 +167,7 @@ void game_loop(void) {
                 olh_scan_objects();
             }
         }
+
         if (sfx_on || music_on) {
             TRACE("%s: sound_frame_update", __FUNCTION__);
             loopLine(GL | 0x1C, mlimbs_do_ai());
