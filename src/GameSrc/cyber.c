@@ -62,7 +62,6 @@ ulong cspace_effect_durations[NUM_CS_EFFECTS] = {CIT_CYCLE * 30, CIT_CYCLE * 15,
 void (*cspace_effect_turnoff[])(uchar visible, uchar real) = {turbo_turnoff, decoy_turnoff, NULL};
 
 uchar cyber_nodie = FALSE;
-// FILE *gCyberHdl;
 
 errtype check_cspace_death() {
     if (global_fullmap->cyber) {
@@ -142,8 +141,6 @@ errtype enter_cyberspace_stuff(char dest_lev) {
     for (i = 0; i < NUM_MFDS; i++)
         save_mfd_slot(i);
 
-    //   full_visible = full_visible | FULL_R_MFD_MASK | FULL_INVENT_MASK;
-
     for (i = 0; i < MFD_NUM_REAL_SLOTS; i++)
         status_back[i] = player_struct.mfd_slot_status[i];
     player_struct.mfd_slot_status[MFD_WEAPON_SLOT] = MFD_UNAVAIL;
@@ -155,7 +152,6 @@ errtype enter_cyberspace_stuff(char dest_lev) {
     set_inventory_mfd(MFD_INV_SOFT_COMBAT, player_struct.actives[ACTIVE_COMBAT_SOFT], TRUE);
     player_struct.current_active = ACTIVE_COMBAT_SOFT;
 
-    //   mfd_notify_func(MFD_CSPACE_FUNC, MFD_INFO_SLOT, TRUE, MFD_ACTIVE, TRUE);
     mfd_notify_func(MFD_EMPTY_FUNC, MFD_INFO_SLOT, TRUE, MFD_ACTIVE, TRUE);
     mfd_change_slot(MFD_LEFT, MFD_INFO_SLOT);
     mfd_change_slot(MFD_RIGHT, MFD_INFO_SLOT);
@@ -174,7 +170,6 @@ errtype enter_cyberspace_stuff(char dest_lev) {
     if (dest_lev >= FIRST_CSPACE_LEVEL)
         hud_set(HUD_CYBERTIME);
 
-    // gCyberHdl = shock_alloc_ipal();		// KLC - keep the handle around.
     shock_alloc_ipal();
 
     return (OK);
@@ -222,11 +217,6 @@ errtype exit_cyberspace_stuff() {
         change_mode_func(0, 0, old_loop);
     inventory_draw_new_page(0);
 
-    /*   if (gCyberHdl != NULL)
-       {
-               // reclaim the memory, fight the power
-               fclose(gCyberHdl);
-       }*/
     grd_ipal = NULL; // hack hack hack hack
 
     return (OK);

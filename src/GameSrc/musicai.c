@@ -145,7 +145,6 @@ void musicai_clear() {
 }
 
 void mlimbs_do_ai() {
-    // extern uchar mlimbs_semaphore;
     extern ObjID damage_sound_id;
     extern char damage_sound_fx;
 
@@ -164,11 +163,6 @@ void mlimbs_do_ai() {
     }
 
 
-    /* Is this really necessary?  It's already called twice in fr_rend().
-    #ifdef AUDIOLOGS
-            audiolog_loop_callback();
-    #endif
-    */
     // Play any queued sound effects, or damage SFX that have yet to get flushed
     if (damage_sound_fx != -1) {
         play_digi_fx_obj(damage_sound_fx, 1, damage_sound_id);
@@ -325,7 +319,6 @@ errtype mlimbs_AI_init(void) {
     tmode_time = 1; // KLC - was 4
     current_score = actual_score = last_score = WALKING_SCORE;
     current_zone = HOSPITAL_ZONE;
-    //   mlimbs_AI = &music_ai;
     cyber_play = 255;
 
     return (OK);
@@ -341,15 +334,8 @@ errtype mai_transition(int new_trans) {
         tmode_time = 1; // KLC - was 4
     } else if ((transition_count == 0) && (layering_table[TRANSITION_LAYER_BASE + new_trans][0] != 255)) {
         current_transition = new_trans;
-        // For now, let's not do any layered transitions.
-        //      transition_count = 1;		//KLC - was 2
     }
     // temp
-    /*
-    char	msg[30];
-    lg_sprintf(msg, "Transitioning:%d, mode:%d, count:%d", new_trans, next_mode, transition_count);
-    message_info(msg);
-    */
     return (OK);
 }
 
@@ -382,43 +368,11 @@ errtype make_request(int chunk_num, int piece_ID) {
     int track = 1+piece_ID;
     if (i >= 0 && i < NUM_THREADS && track >= 0 && track < NumTracks && !WonGame_ShowStats && !IsPlaying(i))
     {
-//        extern uchar curr_vol_lev;
-//        int volume = (int)curr_vol_lev * 127 / 100; //convert from 0-100 to 0-127
         StartTrack(i, track);
     }
 
     return (OK);
 }
-
-/*
-errtype load_score_from_cfg(FSSpec *specPtr)
-{
-        short  	filenum;
-        Handle	binHdl;
-        Ptr		p;
-
-        filenum = FSpOpenResFile(specPtr, fsRdPerm);
-        if (filenum == -1)
-                return (ERR_FOPEN);
-        binHdl = GetResource('tbin', 128);
-        if (binHdl == NULL)
-                return (ERR_FOPEN);
-
-        HLock(binHdl);
-        p = *binHdl;
-        BlockMoveData(p, track_table, NUM_SCORES * SUPERCHUNKS_PER_SCORE);
-        p += NUM_SCORES * SUPERCHUNKS_PER_SCORE;
-        BlockMoveData(p, transition_table, NUM_TRANSITIONS);
-        p += NUM_TRANSITIONS;
-        BlockMoveData(p, layering_table, NUM_LAYERS * MAX_KEYS);
-        p += NUM_LAYERS * MAX_KEYS;
-        BlockMoveData(p, key_table, NUM_LAYERABLE_SUPERCHUNKS * KEY_BAR_RESOLUTION);
-        HUnlock(binHdl);
-
-        CloseResFile(filenum);
-        return(OK);
-}
-*/
 
 int old_score;
 
@@ -450,17 +404,6 @@ errtype fade_into_location(int x, int y) {
     return (OK);
 }
 
-/*KLC - don't need
-errtype blank_theme_data()
-{
-   LG_memset(track_table, 255, NUM_SCORES * SUPERCHUNKS_PER_SCORE * sizeof(uchar));
-   LG_memset(transition_table, 255, NUM_TRANSITIONS * sizeof(uchar));
-   LG_memset(layering_table, 255, NUM_LAYERS * MAX_KEYS * sizeof(uchar));
-   LG_memset(key_table, 255, NUM_LAYERABLE_SUPERCHUNKS * KEY_BAR_RESOLUTION * sizeof(uchar));
-   return(OK);
-}
-*/
-
 // don't need?     uchar voices_4op = FALSE;
 // don't need?     uchar digi_gain = FALSE;
 void load_score_guts(uint8_t score_play) {
@@ -471,7 +414,6 @@ void load_score_guts(uint8_t score_play) {
     sprintf(base, "thm%d", score_play);
     musicai_shutdown();
 
-    // rv = MacTuneLoadTheme(&themeSpec, score_playing);
     rv = MacTuneLoadTheme(base, score_play);
 
     if (rv == 0) {
@@ -489,7 +431,6 @@ errtype load_score_for_location(int x, int y) {
 
     pme = MAP_GET_XY(x, y);
     sc = me_bits_music(pme);
-    // KLC   if ((global_fullmap->cyber) && (sc != 0))
     if (global_fullmap->cyber)
         sc = CYBERSPACE_SCORE_BASE;
     old_bits = old_score = score_playing = sc;
@@ -531,7 +472,6 @@ errtype load_score_for_location(int x, int y) {
 #define DIGI_DRQ  DIGI_TYPE][DEV_DRQ
 
 #define SFX_BUFFER_SIZE 8192
-//#define SFX_BUFFER_SIZE 4096
 
 static char *dev_suffix[] = {"card", "irq", "dma", "io", "drq"};
 static char *dev_prefix[] = {"midi_", "digi_"};
@@ -580,158 +520,7 @@ void secret_closedown(void) {
 //  the presence of QuickTime Musical Instruments.
 //----------------------------------------------------------------------
 errtype music_init() {
-    /* put in later
-       int i,j;
-       uchar gm=FALSE;
-       short dev_info[DEV_TYPES][DEV_PARMS];
-       char s[64],path[64];
-       audio_card card_info;
-       extern uchar curr_sfx_vol;
-       extern char curr_vol_lev;
-
-    #ifdef SECRET_SUPPORT
-       if ((secret_fp=fopen("secret.ddb","wt"))!=NULL)
-       {
-          secret_dc_buf[0]='\0';
-          mono_clear();
-          mono_split(MONO_AXIS_Y,4);
-          mono_setwin(2);
-       }
-       atexit(secret_closedown);
-    #endif
-
-       strcpy(s,def_sound_path);
-
-       dev_info[MIDI_CARD]=music_get_config(dev_prefix[0],dev_suffix[0]);
-       dev_info[DIGI_CARD]=music_get_config(dev_prefix[1],dev_suffix[0]);
-
-       DatapathClear(&music_dpath);
-
-       // can we make this actually know what is going on?
-       switch (dev_info[MIDI_CARD])
-       {     // probably should be in the library, not here...
-       case GRAVISULTRASTUPID: case MT32: case GENMIDI: case AWE32: case SOUNDSCAPE: case RAP_10: gm=TRUE; break;
-       }
-
-       // add contents of CFG_SOUNDVAR
-       if (config_get_raw(CFG_SOUNDVAR,path,64))
-       {
-    //      mprintf("hey, path = %s\n",path);
-          DatapathAdd(&music_dpath, path);
-          if (gm)
-             { strcat(path,"\\genmidi"); }
-          else
-             { strcat(path,"\\sblaster"); }
-    //      mprintf("now, path = %s\n",path);
-          DatapathAdd(&music_dpath,path);
-       }
-
-       // add contents of CFG_CD_SOUNDVAR
-       if (config_get_raw(CFG_CD_SOUNDVAR,path,64))
-       {
-    //      mprintf("hey, path = %s\n",path);
-          DatapathAdd(&music_dpath, path);
-          if (gm)
-             { strcat(path,"\\genmidi"); }
-          else
-             { strcat(path,"\\sblaster"); }
-    //      mprintf("now, path = %s\n",path);
-          DatapathAdd(&music_dpath,path);
-       }
-
-    #ifdef PLAYTEST
-       DatapathAdd(&music_dpath,s+15); // and go back and add net/sound if necessary
-    #else
-       DatapathAdd(&music_dpath,s);
-    #endif
-
-       if (gm)
-          { strcat(s,"\\genmidi"); }
-       else
-          { strcat(s,"\\sblaster"); }
-
-    #ifdef PLAYTEST
-       DatapathAdd(&music_dpath,s+15);        // add just sound/devtype
-       DatapathAdd(&music_dpath,s);
-       s[21] = '\0';
-       DatapathAdd(&music_dpath,s);
-    #else
-       DatapathAdd(&music_dpath,s);        // add just sound/devtype
-    #endif
-
-       snd_setup(&music_dpath,"sound/cit");      // really it should go find cit.ad on the datapath, then use its path
-
-       music_card=(dev_info[MIDI_CARD]>0);
-       sfx_card  =(dev_info[DIGI_CARD]>0);
-       if (!(music_card||sfx_card))
-       {
-          curr_sfx_vol = 0;
-          curr_vol_lev = 0;
-               return(ERR_NODEV);
-       }
-
-       for (i=0; i<DEV_TYPES; i++)
-          if (dev_info[i][DEV_CARD]!=-1)
-                  for (j=1; j<DEV_PARMS; j++)
-                dev_info[i][j]=music_get_config(dev_prefix[i],dev_suffix[j]);
-
-    #define ULTRA_GROSS_JOHN_MILES_HACK
-    #ifdef ULTRA_GROSS_JOHN_MILES_HACK
-       {
-          #include <conio.h>
-          if ((dev_info[MIDI_CARD]==GENMIDI)&&(dev_info[DIGI_CARD]==SOUNDBLASTERPRO2)) {
-             int mod_loc=dev_info[DIGI_IO];      // loc, the io port to send too
-             if (mod_loc==-1) mod_loc=0x220;     // i know much secretness of destruction
-             outp(mod_loc+4,0x83);     // such that def io is 220, which AIL wont
-             outp(mod_loc+5,0xb);	   // tell me till later, when we init it
-          }                                      // which we are not allowed to do yet
-       }
-    #endif
-
-       if (music_card)
-       {
-          if (snd_start_midi(fill_audio_card(&card_info,dev_info[MIDI_TYPE]))!=SND_OK)
-          {
-             Warning(("Device %d not loaded for Midi at %x %x %x
-    %x\n",dev_info[MIDI_CARD],dev_info[MIDI_IO],dev_info[MIDI_IRQ],dev_info[MIDI_DMA],dev_info[MIDI_DRQ])); music_card =
-    FALSE; curr_vol_lev = 0;
-          }
-          else
-          {
-             mlimbs_init();
-          }
-       }
-       else
-          curr_vol_lev = 0;
-
-       if (sfx_card)
-       {
-          if (snd_start_digital(fill_audio_card(&card_info,dev_info[DIGI_TYPE]))!=SND_OK)
-               {
-                  Warning(("Device %d not loaded for DigiFx at %x %x %x
-    %x\n",dev_info[DIGI_CARD],dev_info[DIGI_IO],dev_info[DIGI_IRQ],dev_info[DIGI_DMA],dev_info[DIGI_DRQ])); sfx_card =
-    FALSE; curr_sfx_vol = 0;
-               }
-            else  // note this use to allocate double buffer space here
-          {
-             snd_set_digital_channels(cur_digi_channels);
-    //         digi_gain = TRUE;             // ie look at detail and stuff
-          }
-            }
-       else
-          curr_sfx_vol = 0;
-
-       if (sfx_card)
-       {
-          sfx_on=TRUE;
-    #ifdef AUDIOLOGS
-          audiolog_init();
-    #endif
-       }
-    */
     if (gShockPrefs.soBackMusic) {
-        //	if (music_card)
-        //	{
         if (MacTuneInit() == 0) // If no error, go ahead and start up.
         {
             music_on = mlimbs_on = TRUE;
@@ -748,10 +537,3 @@ errtype music_init() {
     }
     return (OK);
 }
-
-/* KLC - doesn't do anything
-void music_free(void)
-{
-   DatapathFree(&music_dpath);
-}
-*/
