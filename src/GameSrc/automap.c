@@ -224,10 +224,9 @@ void mfd_map_expose(MFD *m, ubyte control) {
         last_map_state = GetLastAutomapMode(mapid);
 
         if (!(control & MFD_EXPOSE_FULL) && map_state == last_map_state) {
-            if (map_state == AUTOMAP_STATION) {
-                if (!(control & MFD_EXPOSE_FULL))
+            if (map_state == AUTOMAP_STATION && !(control & MFD_EXPOSE_FULL))
                     return;
-            } else {
+            else {
 #define WORKING_INC_MFDS
 #ifndef WORKING_INC_MFDS
                 if (last_update + (CIT_CYCLE >> 3) > (*tmd_ticks)) {
